@@ -16,3 +16,4 @@ aiofiles
 email-validator
 bcrypt
 python-multipart
+google-generativeai
