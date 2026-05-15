@@ -1,62 +1,116 @@
+import os
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import tensorflow as tf
 import numpy as np
 
 from PIL import Image
 
-# Load trained model
-model = tf.keras.models.load_model(
-    "ml_model/keratoconus_model.h5"
-)
 
-# Class labels
+# ============================================
+# CLASS LABELS
+# ============================================
+
 class_names = [
+
     "Keratoconus",
+
     "Normal",
+
     "Suspect"
 ]
 
 
-# Predict Function
+# ============================================
+# PREDICT FUNCTION
+# ============================================
+
 def predict_image(image_path):
 
-    # Load image
+    # ========================================
+    # LOAD MODEL ONLY WHEN NEEDED
+    # ========================================
+
+    model = tf.keras.models.load_model(
+
+        "ml_model/keratoconus_model.h5"
+    )
+
+    # ========================================
+    # LOAD IMAGE
+    # ========================================
+
     image = Image.open(image_path)
 
     image = image.convert("RGB")
 
-    # Resize
+    # ========================================
+    # RESIZE
+    # ========================================
+
     image = image.resize((224, 224))
 
-    # Convert to array
+    # ========================================
+    # CONVERT TO ARRAY
+    # ========================================
+
     image_array = np.array(image)
 
-    # Normalize
+    # ========================================
+    # NORMALIZE
+    # ========================================
+
     image_array = image_array / 255.0
 
-    # Expand dimensions
+    # ========================================
+    # EXPAND DIMENSIONS
+    # ========================================
+
     image_array = np.expand_dims(
+
         image_array,
+
         axis=0
     )
 
-    # Predict
-    predictions = model.predict(image_array)
+    # ========================================
+    # PREDICT
+    # ========================================
 
-    predicted_index = np.argmax(predictions)
+    predictions = model.predict(
+
+        image_array,
+
+        verbose=0
+    )
+
+    predicted_index = np.argmax(
+
+        predictions
+    )
 
     predicted_class = class_names[
         predicted_index
     ]
 
     confidence = float(
+
         predictions[0][predicted_index]
     )
 
+    # ========================================
+    # RETURN RESULT
+    # ========================================
+
     return {
 
-        "predicted_class": predicted_class,
+        "predicted_class":
+            predicted_class,
 
-        "confidence": round(confidence * 100, 2),
+        "confidence":
+            round(confidence * 100, 2),
 
-        "all_probabilities": predictions.tolist()
+        "all_probabilities":
+            predictions.tolist()
     }
