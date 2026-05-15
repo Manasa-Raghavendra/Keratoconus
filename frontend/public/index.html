@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assisted Keratoconus Detection using Pentacam</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <section id="login-page" class="page active">
+        <div class="login-container">
+            <div class="login-left">
+                <div class="medical-overlay"></div>
+                <div class="login-branding">
+                    <div class="eye-illustration">
+                        <i class="fas fa-eye"></i>
+                        <div class="eye-rings">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <h1>AI Keratoconus Detection</h1>
+                    <p>Advanced Pentacam Analysis powered by Artificial Intelligence</p>
+                    <div class="feature-tags">
+                        <span><i class="fas fa-brain"></i> Deep Learning</span>
+                        <span><i class="fas fa-shield-alt"></i> HIPAA Compliant</span>
+                        <span><i class="fas fa-chart-line"></i> 53.2% Accuracy</span>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right">
+                <div class="glass-card login-card">
+                    <div class="login-header">
+                        <div class="logo-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to access the AI Dashboard</p>
+                    </div>
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="login-email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="login-email" placeholder="doctor@hospital.com" required>
+                            <span class="error-msg" id="login-email-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password"><i class="fas fa-lock"></i> Password</label>
+                            <div class="password-input">
+                                <input type="password" id="login-password" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="error-msg" id="login-password-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-role"><i class="fas fa-user-md"></i> Role</label>
+                            <select id="login-role" required>
+                                <option value="">Select your role</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" onclick="openForgotPassword()">
+
+                                Forgot Password?
+
+                            </a>
+                        </div>
+                        <button type="submit" class="btn-primary btn-glow">
+                            <i class="fas fa-sign-in-alt"></i> Access AI Dashboard
+                        </button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Don't have an account?</p>
+                        <button class="btn-secondary" onclick="showPage('registration-page')">
+                            <i class="fas fa-user-plus"></i> Create Doctor Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== REGISTRATION PAGE ==================== -->
+    <section id="registration-page" class="page">
+        <div class="registration-container">
+            <div class="glass-card registration-card">
+                <div class="registration-header">
+                    <div class="logo-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h2>Doctor Registration</h2>
+                    <p>Create your professional account</p>
+                </div>
+                <form id="registration-form" class="registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="reg-fullname" placeholder="Dr. John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-id-card"></i> Doctor ID</label>
+                            <input type="text" id="reg-doctorid" placeholder="DOC-12345" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-certificate"></i> Medical License Number</label>
+                            <input type="text" id="reg-license" placeholder="MED-2024-XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-stethoscope"></i> Specialization</label>
+                            <select id="reg-specialization" required>
+                                <option value="">Select Specialization</option>
+                                <option value="cornea">Cornea Specialist</option>
+                                <option value="general">General Ophthalmologist</option>
+                                <option value="refractive">Refractive Surgeon</option>
+                                <option value="pediatric">Pediatric Ophthalmologist</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-hospital"></i> Hospital/Clinic Name</label>
+                            <input type="text" id="reg-hospital" placeholder="City Eye Hospital" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-briefcase-medical"></i> Years of Experience</label>
+                            <input type="number" id="reg-experience" placeholder="5" min="0" max="60" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="reg-email" placeholder="doctor@hospital.com" required>
+                            <button type="button" onclick="sendOTP()">
+
+                                    Verify Email
+
+                             </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="reg-phone" placeholder="+91 98765 43210" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <div class="password-input">
+                                <input type="password" id="reg-password" placeholder="Create password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('reg-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength" id="password-strength">
+                                <div class="strength-bar"></div>
+                                <span class="strength-text">Password Strength</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Confirm Password</label>
+                            <div class="password-input">
+                                <input type="password" id="reg-confirm-password" placeholder="Confirm password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('reg-confirm-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-city"></i> City</label>
+                            <input type="text" id="reg-city" placeholder="Mysore" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-camera"></i> Profile Photo</label>
+                            <div class="file-upload">
+                                <input type="file" id="reg-photo" accept="image/*" onchange="previewProfilePhoto(event)">
+                                <label for="reg-photo" class="file-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Upload Photo</span>
+                                </label>
+                                <div class="photo-preview" id="photo-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group terms-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reg-terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="showPage('login-page')">
+                            <i class="fas fa-arrow-left"></i> Back to Login
+                        </button>
+                        <button type="submit" class="btn-primary btn-glow">
+                            <i class="fas fa-user-plus"></i> Register Doctor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================== -->
+<!-- FORGOT PASSWORD MODAL -->
+<!-- ===================================================== -->
+
+<div id="forgot-password-modal" class="otp-modal-overlay">
+
+    <div class="otp-modal-box">
+
+        <h2>Forgot Password</h2>
+
+        <input
+            type="email"
+            id="forgot-email"
+            placeholder="Enter Email"
+        >
+
+        <button onclick="sendForgotOTP()">
+
+            Send OTP
+
+        </button>
+
+        <input
+            type="text"
+            id="forgot-otp"
+            placeholder="Enter OTP"
+        >
+
+        <input
+            type="password"
+            id="new-password"
+            placeholder="New Password"
+        >
+
+        <button onclick="resetPassword()">
+
+            Reset Password
+
+        </button>
+
+    </div>
+
+</div>
+
+    <!-- ===================================================== -->
+<!-- OTP VERIFICATION MODAL -->
+<!-- ===================================================== -->
+
+<div id="otp-modal" class="otp-modal-overlay">
+
+    <div class="otp-modal-box">
+
+        <h2>Email Verification</h2>
+
+        <p>
+            Enter the OTP sent to your email
+        </p>
+
+        <input
+            type="hidden"
+            id="otp-email"
+        >
+
+        <input
+            type="text"
+            id="otp-code"
+            placeholder="Enter 6-digit OTP"
+        >
+
+        <button onclick="verifyOTP()">
+
+            Verify Email
+
+        </button>
+
+    </div>
+
+</div>
+
+    <!-- ==================== MAIN DASHBOARD ==================== -->
+    <section id="dashboard" class="page">
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-logo">
+                        <i class="fas fa-eye"></i>
+                        <span>KCN AI</span>
+                    </div>
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li class="nav-item active" data-page="dashboard-home">
+                            <a href="#" onclick="showDashboardSection('dashboard-home')">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-page="upload-section">
+                            <a href="#" onclick="showDashboardSection('upload-section')">
+                                <i class="fas fa-upload"></i>
+                                <span>Upload Pentacam Maps</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-page="prediction-section">
+                            <a href="#" onclick="showDashboardSection('prediction-section')">
+                                <i class="fas fa-brain"></i>
+                                <span>Prediction Results</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-page="reports-section">
+                            <a href="#" onclick="showDashboardSection('reports-section')">
+                                <i class="fas fa-file-medical"></i>
+                                <span>Patient Reports</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-page="about-section">
+                            <a href="#" onclick="showDashboardSection('about-section')">
+                                <i class="fas fa-info-circle"></i>
+                                <span>About Keratoconus</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-page="settings-section">
+                            <a href="#" onclick="showDashboardSection('settings-section')">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item admin-only" data-page="admin-section">
+                            <a href="#" onclick="showDashboardSection('admin-section')">
+                                <i class="fas fa-user-shield"></i>
+                                <span>Admin Panel</span>
+                            </a>
+                        </li>
+                        <li class="nav-item logout">
+                            <a href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Top Navbar -->
+                <header class="top-navbar">
+                    <div class="navbar-left">
+                        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1 class="page-title">Keratoconus AI Dashboard</h1>
+                    </div>
+                    <div class="navbar-right">
+                        <div class="notifications" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                            <div class="notifications-dropdown" id="notifications-dropdown">
+                                <div class="dropdown-header">
+                                    <h4>Notifications</h4>
+                                    <button
+                                        class="mark-read-btn"
+                                        onclick="markAllNotificationsRead()">
+
+                                        Mark all read
+
+                                    </button>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    <div class="notification-content">
+                                        <p>New prediction completed</p>
+                                        <span>2 minutes ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus text-info"></i>
+                                    <div class="notification-content">
+                                        <p>Doctor registration approved</p>
+                                        <span>1 hour ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    <div class="notification-content">
+                                        <p>High-risk patient detected</p>
+                                        <span>3 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-profile" onclick="toggleProfileMenu()">
+                            <div class="user-avatar">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name" id="user-display-name">Dr. User</span>
+                                <span class="user-role" id="user-display-role">Doctor</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="profile-dropdown" id="profile-dropdown">
+                                <a href="#" onclick="showDashboardSection('settings-section')">
+                                    <i class="fas fa-user"></i> My Profile
+                                </a>
+                                <a href="#" onclick="showDashboardSection('settings-section')">
+                                    <i class="fas fa-cog"></i> Settings
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Dashboard Content Sections -->
+                <div class="content-area">
+                    <!-- Dashboard Home -->
+                    <div id="dashboard-home" class="dashboard-section active">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon patients">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-predictions">0</h3>
+                                    <p>Total Patients Checked</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon normal">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="normal-cases">0</h3>
+                                    <p>Normal Predictions</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon suspect">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="suspect-cases">0</h3>
+                                    <p>Suspect Predictions</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon kcn">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="kcn-cases">0</h3>
+                                    <p>Keratoconus Detected</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon accuracy">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="accuracy-rate">0%</h3>
+                                    <p>AI Model Accuracy</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="charts-grid">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3><i class="fas fa-chart-pie"></i> Prediction Distribution</h3>
+                                </div>
+                                <div class="chart-body">
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3><i class="fas fa-chart-bar"></i> Monthly Predictions</h3>
+                                </div>
+                                <div class="chart-body">
+                                    <canvas id="barChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-card wide">
+                                <div class="chart-header">
+                                    <h3><i class="fas fa-chart-line"></i> Risk Trend Analysis</h3>
+                                </div>
+                                <div class="chart-body">
+                                    <canvas id="lineChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent-activity">
+                            <div class="activity-header">
+                                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                                <a href="#" onclick="showDashboardSection('reports-section')">View All</a>
+                            </div>
+                            <div class="activity-list" id="activity-list">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Section -->
+                    <div id="upload-section" class="dashboard-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-upload"></i> Upload Pentacam Maps</h2>
+                            <p>Upload corneal topography images for AI analysis</p>
+                        </div>
+
+                        <div class="upload-container">
+                            <div class="patient-info-form glass-card">
+                                <h3><i class="fas fa-user"></i> Patient Information</h3>
+                                <form id="patient-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Patient ID</label>
+                                            <input type="text" id="patient-id" placeholder="PAT-2024-XXXX" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Patient Name</label>
+                                            <input type="text" id="patient-name" placeholder="Full Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Age</label>
+                                            <input type="number" id="patient-age" placeholder="25" min="1" max="120" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <select id="patient-gender" required>
+                                                <option value="">Select Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Eye Type</label>
+                                            <select id="patient-eye" required>
+                                                <option value="">Select Eye</option>
+                                                <option value="OD">OD (Right Eye)</option>
+                                                <option value="OS">OS (Left Eye)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <input type="date" id="patient-date" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Notes</label>
+                                        <textarea id="patient-notes" placeholder="Additional clinical notes..."></textarea>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="upload-area glass-card">
+                                <h3><i class="fas fa-images"></i> Pentacam Map Images</h3>
+                                <div class="dropzone" id="dropzone">
+                                    <div class="dropzone-content">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <h4>Drag & Drop Pentacam Maps</h4>
+                                        <p>or click to browse files</p>
+                                        <span class="file-types">Upload 1-2 images (JPG, PNG, DICOM)</span>
+                                    </div>
+                                    <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+                                </div>
+                                <div class="upload-preview" id="upload-preview">
+                                    <!-- Preview thumbnails will appear here -->
+                                </div>
+                                <div class="upload-actions">
+                                    <button type="button" class="btn-secondary" onclick="clearUploads()">
+                                        <i class="fas fa-trash"></i> Clear Uploads
+                                    </button>
+                                    <button type="button" class="btn-primary btn-glow" onclick="runPrediction()">
+                                        <i class="fas fa-brain"></i> Run AI Prediction
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prediction Section -->
+                    <div id="prediction-section" class="dashboard-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-brain"></i> AI Prediction Results</h2>
+                            <p>Comprehensive corneal analysis report</p>
+                        </div>
+
+                        <div class="prediction-container" id="prediction-container">
+                            <div class="no-prediction glass-card">
+                                <i class="fas fa-microscope"></i>
+                                <h3>No Prediction Available</h3>
+                                <p>Upload Pentacam maps and run AI analysis to view results</p>
+                                <button class="btn-primary" onclick="showDashboardSection('upload-section')">
+                                    <i class="fas fa-upload"></i> Upload Maps
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Section -->
+                    <div id="reports-section" class="dashboard-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-file-medical"></i> Patient Reports</h2>
+                            <p>Manage and review patient prediction history</p>
+                        </div>
+
+                        <div class="reports-controls glass-card">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="report-search" placeholder="Search by Patient ID or Name..." onkeyup="filterReports()">
+                            </div>
+                            <div class="filter-group">
+                                <select id="report-filter" onchange="filterReports()">
+                                    <option value="all">All Predictions</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Suspect">Suspect KCN</option>
+                                    <option value="Keratoconus">Keratoconus</option>
+                                </select>
+                                <select id="report-sort" onchange="sortReports()">
+                                    <option value="date-desc">Newest First</option>
+                                    <option value="date-asc">Oldest First</option>
+                                    <option value="risk-desc">Highest Risk</option>
+                                    <option value="risk-asc">Lowest Risk</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="reports-table-container glass-card">
+                            <table class="reports-table" id="reports-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient ID</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Eye</th>
+                                        <th>Prediction</th>
+                                        <th>Risk Score</th>
+                                        <th>Doctor</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reports-tbody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <div class="pagination" id="pagination">
+                                <!-- Pagination controls -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Section -->
+                    <div id="about-section" class="dashboard-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-info-circle"></i> About Keratoconus</h2>
+                            <p>Understanding the condition and AI-assisted diagnosis</p>
+                        </div>
+
+                        <div class="about-grid">
+                            <div class="info-card glass-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3>What is Keratoconus?</h3>
+                                <p>Keratoconus is a progressive eye disease where the normally round cornea thins and begins to bulge into a cone-like shape. This cone shape deflects light as it enters the eye on its way to the light-sensitive retina, causing distorted vision.</p>
+                                <ul>
+                                    <li>Affects approximately 1 in 2,000 people</li>
+                                    <li>Usually begins during teenage years</li>
+                                    <li>Progressive condition requiring monitoring</li>
+                                    <li>Can affect one or both eyes</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-card glass-card">
+                                <div class="info-icon warning">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <h3>Symptoms</h3>
+                                <p>Early detection is crucial for effective management. Common symptoms include:</p>
+                                <ul>
+                                    <li>Blurred or distorted vision</li>
+                                    <li>Increased sensitivity to light and glare</li>
+                                    <li>Frequent changes in eyeglass prescription</li>
+                                    <li>Difficulty driving at night</li>
+                                    <li>Eye strain and headaches</li>
+                                    <li>Halos around lights</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-card glass-card">
+                                <div class="info-icon info">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <h3>Pentacam Examination</h3>
+                                <p>Pentacam is a rotating Scheimpflug camera system that provides comprehensive anterior segment analysis:</p>
+                                <ul>
+                                    <li>3D chamber analysis from anterior to posterior</li>
+                                    <li>True elevation maps (front & back)</li>
+                                    <li>Pachymetry mapping (corneal thickness)</li>
+                                    <li>Pupil diameter and position</li>
+                                    <li>Anterior chamber depth analysis</li>
+                                    <li>Keratoconus screening indices</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-card glass-card">
+                                <div class="info-icon success">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h3>AI Benefits</h3>
+                                <p>Our AI system provides significant advantages in keratoconus detection:</p>
+                                <ul>
+                                    <li>53.2% detection accuracy</li>
+                                    <li>Early stage identification</li>
+                                    <li>Consistent and objective analysis</li>
+                                    <li>Rapid results in seconds</li>
+                                    <li>Explainable AI with Grad-CAM visualization</li>
+                                    <li>Risk stratification scoring</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-card glass-card wide">
+                                <div class="info-icon treatment">
+                                    <i class="fas fa-medkit"></i>
+                                </div>
+                                <h3>Treatment Overview</h3>
+                                <p>Treatment options vary based on the stage and progression of keratoconus:</p>
+                                <div class="treatment-stages">
+                                    <div class="stage">
+                                        <h4>Early Stage</h4>
+                                        <p>Glasses or soft contact lenses can correct mild astigmatism</p>
+                                    </div>
+                                    <div class="stage">
+                                        <h4>Moderate Stage</h4>
+                                        <p>Rigid gas permeable (RGP) lenses or scleral lenses provide better vision</p>
+                                    </div>
+                                    <div class="stage">
+                                        <h4>Progressive Cases</h4>
+                                        <p>Corneal cross-linking (CXL) can halt progression</p>
+                                    </div>
+                                    <div class="stage">
+                                        <h4>Advanced Stage</h4>
+                                        <p>Corneal transplant may be necessary in severe cases</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section -->
+<div id="settings-section" class="dashboard-section">
+
+    <div class="section-header">
+
+        <h2>
+            <i class="fas fa-cog"></i>
+            Settings
+        </h2>
+
+        <p>
+            Manage your account and preferences
+        </p>
+
+    </div>
+
+    <div class="settings-container">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="settings-sidebar">
+
+            <ul>
+
+                <li
+                    class="active"
+                    onclick="showSettingsTab('profile-settings')">
+
+                    <i class="fas fa-user"></i>
+                    Profile
+                </li>
+
+                <li
+                    onclick="showSettingsTab('notification-settings')">
+
+                    <i class="fas fa-bell"></i>
+                    Notifications
+                </li>
+
+                <li
+                    onclick="showSettingsTab('appearance-settings')">
+
+                    <i class="fas fa-palette"></i>
+                    Appearance
+                </li>
+
+                <li
+                    onclick="showSettingsTab('security-settings')">
+
+                    <i class="fas fa-shield-alt"></i>
+                    Security
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- ================= SETTINGS CONTENT ================= -->
+        <div class="settings-content">
+
+            <!-- ================= PROFILE SETTINGS ================= -->
+            <div
+                id="profile-settings"
+                class="settings-tab active glass-card">
+
+                <h3>Profile Settings</h3>
+
+                <form id="profile-form">
+
+                    <!-- PROFILE PHOTO -->
+                    <div class="profile-photo-section">
+
+                        <div
+                            class="current-photo"
+                            id="settings-photo-preview">
+
+                            <i class="fas fa-user-md"></i>
+
+                        </div>
+
+                        <input
+                            type="file"
+                            id="settings-photo-input"
+                            accept="image/*"
+                            style="display:none;"
+                            onchange="changeSettingsPhoto(event)"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-secondary"
+                            onclick="document.getElementById('settings-photo-input').click()">
+
+                            <i class="fas fa-camera"></i>
+                            Change Photo
+
+                        </button>
+
+                    </div>
+
+                    <!-- PROFILE FORM -->
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Full Name</label>
+
+                            <input
+                                type="text"
+                                id="profile-fullname"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Email</label>
+
+                            <input
+                                type="email"
+                                id="profile-email"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Hospital</label>
+
+                            <input
+                                type="text"
+                                id="profile-hospital"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Phone</label>
+
+                            <input
+                                type="tel"
+                                id="profile-phone"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn-primary">
+
+                        <i class="fas fa-save"></i>
+                        Save Changes
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- ================= NOTIFICATION SETTINGS ================= -->
+            <div
+                id="notification-settings"
+                class="settings-tab glass-card">
+
+                <h3>Notification Settings</h3>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>Email Notifications</h4>
+
+                        <p>
+                            Receive prediction results via email
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input
+                            type="checkbox"
+                            id="email-notifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>High Risk Alerts</h4>
+
+                        <p>
+                            Immediate notification for KCN detection
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input
+                            type="checkbox"
+                            id="high-risk-alerts"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>Weekly Reports</h4>
+
+                        <p>
+                            Summary of weekly predictions
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input
+                            type="checkbox"
+                            id="weekly-reports"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- ================= APPEARANCE SETTINGS ================= -->
+            <div
+                id="appearance-settings"
+                class="settings-tab glass-card">
+
+                <h3>Appearance Settings</h3>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>Dark Mode</h4>
+
+                        <p>
+                            Enable dark theme for the interface
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input
+                            type="checkbox"
+                            id="dark-mode-toggle"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>Compact Mode</h4>
+
+                        <p>
+                            Reduce spacing for more content
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input type="checkbox">
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h4>Animations</h4>
+
+                        <p>
+                            Enable interface animations
+                        </p>
+
+                    </div>
+
+                    <label class="toggle-switch">
+
+                        <input
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- ================= SECURITY SETTINGS ================= -->
+            <div
+                id="security-settings"
+                class="settings-tab glass-card">
+
+                <h3>Security Settings</h3>
+
+                <form id="password-form">
+
+                    <div class="form-group">
+
+                        <label>
+                            Current Password
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="password"
+                            id="current-password"
+                            placeholder="Enter current password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            New Password
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="password"
+                            id="new-password"
+                            placeholder="Enter new password"
+                            required
+                            minlength="8"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Confirm New Password
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            placeholder="Confirm new password"
+                            required
+                            minlength="8"
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn-primary">
+
+                        <i class="fas fa-key"></i>
+                        Update Password
+
+                    </button>
+
+                </form>
+
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+                    <!-- Admin Section -->
+<div id="admin-section" class="dashboard-section">
+
+    <div class="section-header">
+        <h2>
+            <i class="fas fa-user-shield"></i>
+            Admin Panel
+        </h2>
+
+        <p>
+            System administration and management
+        </p>
+    </div>
+
+    <div class="admin-stats-grid">
+
+        <div class="stat-card admin">
+            <div class="stat-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+
+            <div class="stat-info">
+                <h3 id="total-doctors-count">0</h3>
+                <p>Total Doctors</p>
+            </div>
+        </div>
+
+        <div class="stat-card pending">
+            <div class="stat-icon">
+                <i class="fas fa-user-clock"></i>
+            </div>
+
+            <div class="stat-info">
+                <h3 id="pending-doctors-count">0</h3>
+                <p>Pending Approvals</p>
+            </div>
+        </div>
+
+        <div class="stat-card dataset">
+            <div class="stat-icon">
+                <i class="fas fa-database"></i>
+            </div>
+
+            <div class="stat-info">
+                <h3 id="dataset-size-count">0</h3>
+                <p>Dataset Size</p>
+            </div>
+        </div>
+
+        <div class="stat-card predictions">
+            <div class="stat-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+
+            <div class="stat-info">
+                <h3 id="total-predictions-count">0</h3>
+                <p>Total Predictions</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= ADMIN TABS ================= -->
+    <div class="admin-tabs">
+
+        <button
+            class="admin-tab active"
+            onclick="showAdminTab('doctors-tab')">
+
+            <i class="fas fa-user-md"></i>
+            Manage Doctors
+        </button>
+
+        <button
+            class="admin-tab"
+            onclick="showAdminTab('dataset-tab')">
+
+            <i class="fas fa-upload"></i>
+            Upload Dataset
+        </button>
+
+        <button
+            class="admin-tab"
+            onclick="showAdminTab('logs-tab')">
+
+            <i class="fas fa-history"></i>
+            Audit Logs
+        </button>
+
+    </div>
+
+    <!-- ================= DOCTORS TAB ================= -->
+    <div id="doctors-tab" class="admin-content active glass-card">
+
+        <div class="admin-table-header">
+
+            <h3>Doctor Registrations</h3>
+
+            <div class="filter-group">
+
+                <select id="doctor-filter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="approved">
+                        Approved
+                    </option>
+
+                    <option value="rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <table class="admin-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Doctor Name</th>
+
+                    <th>License ID</th>
+
+                    <th>Hospital</th>
+
+                    <th>Specialization</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <!-- DYNAMIC DOCTOR TABLE -->
+            <tbody id="doctor-table-body">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ================= DATASET TAB ================= -->
+    <div id="dataset-tab" class="admin-content glass-card">
+
+        <h3>Upload Training Dataset</h3>
+
+        <div class="dataset-upload-area">
+
+            <div class="dropzone" id="dataset-dropzone">
+
+                <i class="fas fa-database"></i>
+
+                <h4>Upload Dataset Files</h4>
+
+                <p>Drag & drop or click to browse</p>
+
+                <span>
+                    Supports: ZIP, CSV, DICOM
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="dataset-stats">
+
+            <div class="dataset-stat">
+
+                <span class="label">
+                    Current Dataset Size:
+                </span>
+
+                <span class="value">
+                    approx 3000 images
+                </span>
+
+            </div>
+
+            <div class="dataset-stat">
+
+                <span class="label">
+                    Last Updated:
+                </span>
+
+                <span class="value">
+                    May 8, 2026
+                </span>
+
+            </div>
+
+            <div class="dataset-stat">
+
+                <span class="label">
+                    Model Version:
+                </span>
+
+                <span class="value">
+                    v1
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= LOGS TAB ================= -->
+    <div id="logs-tab" class="admin-content glass-card">
+
+        <h3>System Audit Logs</h3>
+
+        <!-- DYNAMIC LOGS -->
+        <div class="logs-list" id="logs-list">
+
+        </div>
+
+    </div>
+
+</div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="medical-loader">
+                <div class="eye-scanner">
+                    <div class="scanner-ring"></div>
+                    <div class="scanner-ring"></div>
+                    <div class="scanner-ring"></div>
+                    <i class="fas fa-eye"></i>
+                </div>
+            </div>
+            <h3>Analyzing Corneal Maps using AI...</h3>
+            <p id="loading-status">Initializing neural network...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content glass-card">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="modal-title">Success!</h3>
+            <p id="modal-message">Operation completed successfully.</p>
+            <button class="btn-primary" onclick="closeModal('success-modal')">
+                <i class="fas fa-check"></i> OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Report View Modal -->
+    <div class="modal" id="report-modal">
+        <div class="modal-content glass-card report-view">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-medical"></i> Patient Report</h3>
+                <button class="close-btn" onclick="closeModal('report-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="report-modal-body">
+                <!-- Report content populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('report-modal')">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button class="btn-primary" onclick="downloadReport()">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">
+            <div class="robot-avatar">
+                <div class="robot-head">
+                    <div class="robot-eyes">
+                        <span class="eye left"></span>
+                        <span class="eye right"></span>
+                    </div>
+                    <div class="robot-antenna"></div>
+                </div>
+            </div>
+            <span class="chatbot-badge">1</span>
+        </button>
+
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-info">
+                    <div class="robot-avatar small">
+                        <div class="robot-head">
+                            <div class="robot-eyes">
+                                <span class="eye left"></span>
+                                <span class="eye right"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatbot-name">
+                        <h4>EyeBot AI</h4>
+                        <span class="online-status"><i class="fas fa-circle"></i> Online</span>
+                    </div>
+                </div>
+                <div class="chatbot-actions">
+                    <button onclick="minimizeChatbot()"><i class="fas fa-minus"></i></button>
+                    <button onclick="toggleChatbot()"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm EyeBot AI, your keratoconus assistant. How can I help you today?</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-suggestions" id="chatbot-suggestions">
+                <button onclick="sendQuickMessage('What is Keratoconus?')">What is Keratoconus?</button>
+                <button onclick="sendQuickMessage('Explain Pentacam Maps')">Explain Pentacam Maps</button>
+                <button onclick="sendQuickMessage('What does Suspect mean?')">What does Suspect mean?</button>
+                <button onclick="sendQuickMessage('Explain Risk Score')">Explain Risk Score</button>
+                <button onclick="sendQuickMessage('How does AI detect KCN?')">How does AI detect KCN?</button>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." onkeypress="handleChatKeypress(event)">
+                <button onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+ <br>
+ <br>
+
+ <br>
+
+
+ <!-- ================= SUCCESS MODAL ================= -->
+
+<div id="success-modal" class="custom-modal">
+
+    <div class="custom-modal-content">
+
+        <h2 id="success-title">Success</h2>
+
+        <p id="success-message"></p>
+
+        <button onclick="closeModal('success-modal')">
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= ERROR MODAL ================= -->
+
+<div id="error-modal" class="custom-modal">
+
+    <div class="custom-modal-content">
+
+        <h2 id="error-title">Error</h2>
+
+        <p id="error-message"></p>
+
+        <button onclick="closeModal('error-modal')">
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+ 
+ 
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>Developed as Academic Project – MIT Mysore</p>
+        <p>AI Assisted Keratoconus Detection using Pentacam &copy; 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
