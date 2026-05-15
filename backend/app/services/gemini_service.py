@@ -1,8 +1,7 @@
+import os
 import google.generativeai as genai
 
 from dotenv import load_dotenv
-
-import os
 
 # =========================================
 # LOAD ENV
@@ -15,10 +14,10 @@ API_KEY = os.getenv(
 )
 
 # =========================================
-# GEMINI CLIENT
+# CONFIGURE GEMINI
 # =========================================
 
-client = genai.Client(
+genai.configure(
     api_key=API_KEY
 )
 
@@ -55,59 +54,27 @@ def ask_eyebot(question):
 
     understand Keratoconus and AI predictions.
 
-    IMPORTANT BEHAVIOR RULES:
-
-    1. Give medically accurate answers.
-
-    2. Explain technical concepts clearly.
-
-    3. When asked technical AI questions,
-    explain concepts like:
-
-    - CNN
-    - Grad-CAM
-    - heatmaps
-    - feature extraction
-    - deep learning
-    - image preprocessing
-    - AI confidence scores
-    - corneal topography analysis
-
-    4. Keep answers concise but informative.
-
-    5. Use simple explanations for beginners.
-
-    6. Use technical explanations when appropriate.
-
-    7. If asked unrelated questions
-    outside ophthalmology or AI healthcare,
-    politely redirect the conversation back to EyeBot's domain.
-
-    8. Never provide harmful medical advice.
-
-    9. Never pretend to diagnose patients definitively.
-
-    10. Mention that final diagnosis
-    must be confirmed by an ophthalmologist.
-
-    Your personality:
-
-    - professional
-    - intelligent
-    - supportive
-    - futuristic
-    - concise
+    IMPORTANT:
+    Final diagnosis must always be confirmed
+    by an ophthalmologist.
 
     User Question:
     {question}
 
     """
 
-    response = client.models.generate_content(
+    try:
 
-        model="gemini-2.5-flash",
+        model = genai.GenerativeModel(
+            "gemini-1.5-flash"
+        )
 
-        contents=prompt
-    )
+        response = model.generate_content(
+            prompt
+        )
 
-    return response.text
+        return response.text
+
+    except Exception as e:
+
+        return f"Gemini Error: {str(e)}"
