@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAdminStats();
 });
 
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "https://keratoconus-backend-mbd6.onrender.com";
 
 // ==================== SETTINGS ====================
 
